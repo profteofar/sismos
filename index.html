@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Estudo: Risco Sísmico e Resiliência em Portugal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        stone: { 50:'#fafaf9',100:'#f5f5f4',200:'#e7e5e4',300:'#d6d3d1',400:'#a8a29e',500:'#78716c',600:'#57534e',700:'#44403c',800:'#292524',900:'#1c1917',950:'#0c0a09' },
+        bronze: { 50:'#fdf8f0',100:'#faefd8',200:'#f3d9a4',300:'#e8bd6e',400:'#dfa042',500:'#c97f22',600:'#a8621a',700:'#874a18',800:'#6e3c18',900:'#5c3317',950:'#341a09' },
+        amber: { 50:'#fffbeb',100:'#fef3c7',200:'#fde68a',300:'#fcd34d',400:'#fbbf24',500:'#f59e0b',600:'#d97706',700:'#b45309',800:'#92400e',900:'#78350f' }
+      }
+    }
+  }
+}
+</script>
+<style>
+  :root {
+    --bronze: #c97f22;
+    --bronze-dark: #a8621a;
+    --stone-bg: #1c1917;
+    --stone-card: #292524;
+    --stone-border: #44403c;
+    --text-primary: #f5f5f4;
+    --text-secondary: #a8a29e;
+    --text-muted: #78716c;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--stone-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Merriweather', serif; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--stone-card); }
+  ::-webkit-scrollbar-thumb { background: var(--stone-border); border-radius: 3px; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(28,25,23,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid var(--stone-border); }
+
+  .nav-tabs { display: flex; overflow-x: auto; gap: 0; scrollbar-width: none; }
+  .nav-tabs::-webkit-scrollbar { display: none; }
+
+  .nav-tab {
+    flex-shrink: 0;
+    padding: 14px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .nav-tab:hover { color: var(--text-primary); }
+  .nav-tab.active { color: var(--bronze); border-bottom-color: var(--bronze); }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, #0c0a09 0%, #1c1917 40%, #292524 70%, #3d2b0e 100%);
+    padding: 64px 24px 48px;
+    text-align: center;
+    border-bottom: 1px solid var(--stone-border);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 100%, rgba(201,127,34,0.15) 0%, transparent 70%);
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(201,127,34,0.15);
+    border: 1px solid rgba(201,127,34,0.3);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: var(--bronze);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  /* Sections */
+  .section { display: none; padding: 32px 0; }
+  .section.active { display: block; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* Cards */
+  .card {
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color: var(--bronze); }
+
+  /* Accordion */
+  .accordion-header {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    transition: background 0.2s;
+  }
+  .accordion-header:hover { background: rgba(201,127,34,0.05); }
+  .accordion-body { display: none; padding: 0 24px 24px; }
+  .accordion-body.open { display: block; }
+  .accordion-icon { transition: transform 0.3s; flex-shrink: 0; }
+  .accordion-icon.open { transform: rotate(180deg); }
+
+  /* Bronze button */
+  .btn-bronze {
+    background: var(--bronze);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-bronze:hover { background: var(--bronze-dark); transform: translateY(-1px); }
+  .btn-bronze:active { transform: translateY(0); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-secondary);
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-ghost:hover { border-color: var(--bronze); color: var(--text-primary); }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0,0,0,0.85);
+    backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .modal.open { display: flex; }
+  .modal-content { max-width: 90vw; max-height: 90vh; position: relative; }
+  .modal-content img { max-width: 100%; max-height: 85vh; border-radius: 8px; object-fit: contain; }
+  .modal-close {
+    position: absolute;
+    top: -16px;
+    right: -16px;
+    background: var(--bronze);
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+  }
+
+  /* Media player */
+  .media-card {
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  audio, video { width: 100%; border-radius: 8px; margin-top: 12px; }
+  audio { accent-color: var(--bronze); }
+
+  /* Slides */
+  .slide-container { position: relative; overflow: hidden; border-radius: 12px; background: #000; }
+  .slide-img { width: 100%; cursor: zoom-in; transition: opacity 0.3s; display: none; }
+  .slide-img.active { display: block; }
+  .slide-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-top: none;
+    border-radius: 0 0 12px 12px;
+  }
+  .slide-btn {
+    background: var(--stone-border);
+    border: none;
+    color: var(--text-primary);
+    border-radius: 8px;
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.2s;
+    min-width: 48px;
+    min-height: 44px;
+  }
+  .slide-btn:hover { background: var(--bronze); }
+  .slide-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
+  .slide-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--stone-border);
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+  }
+  .slide-dot.active { background: var(--bronze); }
+
+  /* Quiz */
+  .quiz-option {
+    padding: 14px 16px;
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    cursor: pointer;
+    margin-bottom: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background: transparent;
+    color: var(--text-primary);
+    text-align: left;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    display: block;
+  }
+  .quiz-option:hover:not(:disabled) { border-color: var(--bronze); background: rgba(201,127,34,0.08); }
+  .quiz-option.correct { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #86efac; }
+  .quiz-option.wrong { border-color: #ef4444; background: rgba(239,68,68,0.1); color: #fca5a5; }
+  .quiz-option.selected-wrong { border-color: #ef4444; background: rgba(239,68,68,0.15); }
+  .quiz-option:disabled { cursor: default; }
+
+  .feedback-box {
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+  .feedback-correct { background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.3); color: #86efac; }
+  .feedback-wrong { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; }
+
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat-item {
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-number { font-size: 28px; font-weight: 700; font-family: 'Merriweather', serif; }
+  .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  .progress-bar { background: var(--stone-border); border-radius: 4px; height: 8px; overflow: hidden; margin-bottom: 28px; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--bronze), #e8bd6e); border-radius: 4px; transition: width 0.5s ease; }
+
+  /* Flashcards */
+  .flashcard-container { perspective: 1000px; }
+  .flashcard {
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+    cursor: pointer;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard-face {
+    position: absolute;
+    inset: 0;
+    backface-visibility: hidden;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+    text-align: center;
+  }
+  .flashcard-front {
+    background: var(--stone-card);
+    border: 2px solid var(--stone-border);
+  }
+  .flashcard-back {
+    background: linear-gradient(135deg, #3d2b0e, #292524);
+    border: 2px solid rgba(201,127,34,0.4);
+    transform: rotateY(180deg);
+  }
+  .flashcard-hint { font-size: 11px; color: var(--text-muted); position: absolute; bottom: 14px; right: 16px; }
+
+  /* Quiz Cards */
+  .quizcard {
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .quizcard-q { padding: 24px; font-family: 'Merriweather', serif; font-size: 16px; border-bottom: 1px solid var(--stone-border); }
+  .quizcard-options { padding: 20px; }
+  .quizcard-answer {
+    display: none;
+    padding: 20px;
+    background: rgba(201,127,34,0.08);
+    border-top: 1px solid rgba(201,127,34,0.2);
+    font-size: 14px;
+    color: #e8bd6e;
+    animation: fadeIn 0.4s ease;
+  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* Glossary */
+  .glossary-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--stone-border);
+    transition: background 0.2s;
+  }
+  .glossary-item:hover { background: rgba(201,127,34,0.04); }
+  .glossary-term { font-weight: 700; color: var(--bronze); font-size: 15px; }
+  .glossary-def { font-size: 14px; color: var(--text-secondary); margin-top: 6px; line-height: 1.7; }
+
+  /* Lab cards */
+  .lab-step {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: rgba(201,127,34,0.05);
+    border: 1px solid rgba(201,127,34,0.15);
+  }
+  .lab-num {
+    width: 32px;
+    height: 32px;
+    background: var(--bronze);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* Tag badges */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .badge-bronze { background: rgba(201,127,34,0.15); color: var(--bronze); border: 1px solid rgba(201,127,34,0.3); }
+  .badge-green { background: rgba(34,197,94,0.1); color: #86efac; border: 1px solid rgba(34,197,94,0.25); }
+  .badge-red { background: rgba(239,68,68,0.1); color: #fca5a5; border: 1px solid rgba(239,68,68,0.25); }
+
+  /* Section headings */
+  .section-heading {
+    font-size: 22px;
+    font-family: 'Merriweather', serif;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+  .section-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+  .divider { height: 1px; background: var(--stone-border); margin: 32px 0; }
+
+  /* Ordering drag */
+  .order-item {
+    padding: 14px 16px;
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    cursor: grab;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 8px;
+    font-size: 14px;
+  }
+  .order-item:hover { border-color: var(--bronze); }
+  .order-item.dragging { opacity: 0.4; }
+  .order-item.drag-over { background: rgba(201,127,34,0.1); border-color: var(--bronze); }
+
+  /* Match */
+  .match-item {
+    padding: 12px 16px;
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    text-align: center;
+    transition: all 0.2s;
+    background: var(--stone-card);
+  }
+  .match-item.selected { border-color: var(--bronze); background: rgba(201,127,34,0.15); color: var(--bronze); }
+  .match-item.matched-correct { border-color: #22c55e; background: rgba(34,197,94,0.1); color: #86efac; pointer-events: none; }
+  .match-item.matched-wrong { border-color: #ef4444; background: rgba(239,68,68,0.1); animation: shake 0.3s; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* Info box */
+  .info-box { background: rgba(201,127,34,0.08); border: 1px solid rgba(201,127,34,0.25); border-radius: 8px; padding: 16px 20px; font-size: 14px; color: #e8bd6e; margin: 16px 0; }
+  .info-box strong { color: var(--bronze); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 40px 16px 32px; }
+    .hero h1 { font-size: 22px !important; }
+    .nav-tab { padding: 12px 14px; font-size: 12px; }
+  }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { background: rgba(201,127,34,0.1); color: var(--bronze); text-align: left; padding: 12px 16px; font-weight: 600; border-bottom: 1px solid var(--stone-border); }
+  td { padding: 11px 16px; border-bottom: 1px solid rgba(68,64,60,0.5); color: var(--text-secondary); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(201,127,34,0.03); }
+
+  /* Timeline */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before { content:''; position:absolute; left:10px; top:0; bottom:0; width:2px; background:var(--stone-border); }
+  .timeline-item { position:relative; margin-bottom:28px; }
+  .timeline-dot { position:absolute; left:-28px; top:4px; width:14px; height:14px; border-radius:50%; background:var(--bronze); border:2px solid var(--stone-bg); }
+  .timeline-year { font-size:12px; font-weight:700; color:var(--bronze); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px; }
+  .timeline-title { font-weight:600; font-size:15px; margin-bottom:6px; }
+  .timeline-desc { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+
+  /* Select */
+  select {
+    background: var(--stone-card);
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    color: var(--text-primary);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  select:focus { outline: none; border-color: var(--bronze); }
+  select option { background: var(--stone-card); }
+
+  /* Checkbox custom */
+  .check-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid var(--stone-border);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 8px;
+    transition: all 0.2s;
+  }
+  .check-label:hover { border-color: var(--bronze); }
+  .check-label input { accent-color: var(--bronze); width:18px; height:18px; }
+  .check-label.correct-sel { border-color:#22c55e; background:rgba(34,197,94,0.08); }
+  .check-label.wrong-sel { border-color:#ef4444; background:rgba(239,68,68,0.08); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-tabs" id="mainNav">
+    <button class="nav-tab active" onclick="showSection('inicio')">🏠 Início</button>
+    <button class="nav-tab" onclick="showSection('media')">🎬 Multimédia</button>
+    <button class="nav-tab" onclick="showSection('resumos')">📚 Resumos</button>
+    <button class="nav-tab" onclick="showSection('quiz')">❓ Questionário</button>
+    <button class="nav-tab" onclick="showSection('flashcards')">🃏 Flashcards</button>
+    <button class="nav-tab" onclick="showSection('quizcards')">🎯 Quiz Cards</button>
+    <button class="nav-tab" onclick="showSection('laboratorio')">🔬 Laboratório</button>
+    <button class="nav-tab" onclick="showSection('glossario')">📖 Glossário</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="position:relative;">
+    <div class="hero-badge">🌍 2.º e 3.º Ciclo · Portugal · Sismologia</div>
+    <h1 style="font-size:30px;font-weight:700;margin-bottom:12px;line-height:1.3;color:#f5f5f4;">Guia de Estudo<br><span style="color:var(--bronze);">Risco Sísmico e Resiliência em Portugal</span></h1>
+    <p style="color:#a8a29e;font-size:15px;max-width:560px;margin:0 auto;">Um guia pedagógico completo sobre sismologia, história dos sismos em Portugal e estratégias de proteção civil — da teoria à autoproteção.</p>
+  </div>
+</div>
+
+<!-- ==================== INÍCIO ==================== -->
+<div class="section active" id="sec-inicio">
+<div class="container">
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-bottom:32px;">
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('resumos')">
+      <div style="font-size:36px;margin-bottom:12px;">📚</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Resumos Explicativos</div>
+      <div style="font-size:13px;color:var(--text-muted);">4 temas com infografias e conteúdo detalhado em formato acordeão.</div>
+    </div>
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('quiz')">
+      <div style="font-size:36px;margin-bottom:12px;">❓</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Questionário Completo</div>
+      <div style="font-size:13px;color:var(--text-muted);">10+ perguntas com vários formatos, feedback e correção detalhada.</div>
+    </div>
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('flashcards')">
+      <div style="font-size:36px;margin-bottom:12px;">🃏</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Flashcards</div>
+      <div style="font-size:13px;color:var(--text-muted);">77 cartões de estudo para memorização por repetição.</div>
+    </div>
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('laboratorio')">
+      <div style="font-size:36px;margin-bottom:12px;">🔬</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Laboratório Visual</div>
+      <div style="font-size:13px;color:var(--text-muted);">Kit de emergência e protocolos de segurança durante e após sismos.</div>
+    </div>
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('media')">
+      <div style="font-size:36px;margin-bottom:12px;">🎬</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Multimédia</div>
+      <div style="font-size:13px;color:var(--text-muted);">Vídeo, podcast, slides e infografias interativas.</div>
+    </div>
+    <div class="card" style="padding:24px;cursor:pointer;" onclick="showSection('glossario')">
+      <div style="font-size:36px;margin-bottom:12px;">📖</div>
+      <div style="font-weight:700;margin-bottom:6px;font-size:16px;">Glossário</div>
+      <div style="font-size:13px;color:var(--text-muted);">Termos técnicos explicados de forma simples.</div>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section-heading">📅 Linha do Tempo — Sismologia em Portugal</div>
+  <p class="section-sub">Os marcos históricos que moldaram a nossa compreensão dos sismos</p>
+  <div class="card" style="padding:28px 28px 28px 40px;">
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1 Nov 1755</div>
+        <div class="timeline-title">Grande Terramoto de Lisboa</div>
+        <div class="timeline-desc">Magnitude estimada 9.0 Mw. Acompanhado de tsunami, destruiu Lisboa e o Algarve. O Marquês de Pombal liderou a reconstrução sismo-resistente (Gaiola Pombalina). Marco do nascimento da sismologia moderna.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">1909</div>
+        <div class="timeline-title">Sismo de Benavente e Descoberta da Moho</div>
+        <div class="timeline-desc">Paul Choffat elabora a primeira Carta Macrossísmica de Portugal. No mesmo ano, Andrija Mohorovičić descobre a descontinuidade crosta-manto (Moho) a partir do sismo de Pokuplje.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">28 Fev 1969</div>
+        <div class="timeline-title">Maior Sismo do Século XX em Portugal</div>
+        <div class="timeline-desc">Magnitude 7.3 Mw. Epicentro no Banco de Gorringe. Sentido em todo o país e Marrocos. Gerou pequeno tsunami. Impulsionou a criação da rede sísmica nacional e normas de construção sismo-resistente.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2006</div>
+        <div class="timeline-title">Lei de Bases da Proteção Civil</div>
+        <div class="timeline-desc">Lei nº 27/2006 estrutura legalmente a Proteção Civil em Portugal, estabelecendo o modelo de gestão integrada do ciclo da catástrofe.</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2017</div>
+        <div class="timeline-title">Cartografia de Inundação por Tsunami</div>
+        <div class="timeline-desc">Publicação da Cartografia de Inundação por Tsunami para o Litoral Continental, essencial para rotas de evacuação e planeamento municipal.</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== MULTIMÉDIA ==================== -->
+<div class="section" id="sec-media">
+<div class="container">
+  <div class="section-heading">🎬 Recursos Multimédia</div>
+  <p class="section-sub">Vídeo, podcast, slides e infografias sobre risco sísmico em Portugal</p>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-bottom:28px;">
+    <!-- Video -->
+    <div class="media-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <span style="font-size:20px;">🎥</span>
+        <span style="font-weight:700;font-size:16px;">Vídeo Resumo</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">Síntese visual dos conteúdos principais</p>
+      <video controls preload="metadata">
+        <source src="./video.mp4" type="video/mp4">
+        <p style="color:var(--text-muted);font-size:13px;margin-top:12px;">⚠️ Ficheiro não encontrado: <code>./video.mp4</code></p>
+      </video>
+    </div>
+    <!-- Podcast -->
+    <div class="media-card">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px;">
+        <span style="font-size:20px;">🎙️</span>
+        <span style="font-weight:700;font-size:16px;">Podcast</span>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:4px;">Narração áudio para revisão em movimento</p>
+      <audio controls>
+        <source src="./podcast.mp3" type="audio/mp3">
+        <p style="color:var(--text-muted);font-size:13px;margin-top:12px;">⚠️ Ficheiro não encontrado: <code>./podcast.mp3</code></p>
+      </audio>
+    </div>
+  </div>
+
+  <!-- Infografias -->
+  <div class="section-heading" style="font-size:18px;margin-bottom:8px;">🖼️ Infografias</div>
+  <p class="section-sub">Clica para ampliar em janela modal</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:36px;">
+    <div class="card" style="cursor:zoom-in;overflow:hidden;" onclick="openModal('./infografia.jpg')">
+      <img src="./infografia.jpg" alt="Infografia Geral" style="width:100%;height:160px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);font-size:13px;\'>📊<br>infografia.jpg</div>'">
+      <div style="padding:12px 14px;font-size:13px;font-weight:600;">Infografia Geral</div>
+    </div>
+    <div class="card" style="cursor:zoom-in;overflow:hidden;" onclick="openModal('./infografia1.jpg')">
+      <img src="./infografia1.jpg" alt="Evolução da Sismologia" style="width:100%;height:160px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);font-size:13px;\'>📊<br>infografia1.jpg</div>'">
+      <div style="padding:12px 14px;font-size:13px;font-weight:600;">Evolução da Sismologia</div>
+    </div>
+    <div class="card" style="cursor:zoom-in;overflow:hidden;" onclick="openModal('./infografia2.jpg')">
+      <img src="./infografia2.jpg" alt="Desvendando os Sismos" style="width:100%;height:160px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);font-size:13px;\'>📊<br>infografia2.jpg</div>'">
+      <div style="padding:12px 14px;font-size:13px;font-weight:600;">Desvendando os Sismos</div>
+    </div>
+    <div class="card" style="cursor:zoom-in;overflow:hidden;" onclick="openModal('./infografia3.jpg')">
+      <img src="./infografia3.jpg" alt="50 Anos de Resiliência" style="width:100%;height:160px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);font-size:13px;\'>📊<br>infografia3.jpg</div>'">
+      <div style="padding:12px 14px;font-size:13px;font-weight:600;">50 Anos de Resiliência</div>
+    </div>
+    <div class="card" style="cursor:zoom-in;overflow:hidden;" onclick="openModal('./infografia4.jpg')">
+      <img src="./infografia4.jpg" alt="Gestão no Algarve" style="width:100%;height:160px;object-fit:cover;" onerror="this.parentElement.innerHTML='<div style=\'padding:40px;text-align:center;color:var(--text-muted);font-size:13px;\'>📊<br>infografia4.jpg</div>'">
+      <div style="padding:12px 14px;font-size:13px;font-weight:600;">Gestão no Algarve</div>
+    </div>
+  </div>
+
+  <!-- Slides -->
+  <div class="section-heading" style="font-size:18px;margin-bottom:8px;">📑 Diapositivos</div>
+  <p class="section-sub">Navega pelos slides — clica para ampliar</p>
+  <div class="slide-container" onclick="openModal('./Diapositivo' + (currentSlide+1) + '.jpg')">
+    <img id="slideImg" src="./Diapositivo1.jpg" class="slide-img active" alt="Diapositivo 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect fill=%22%23292524%22 width=%22800%22 height=%22450%22/><text x=%22400%22 y=%22200%22 text-anchor=%22middle%22 fill=%22%2378716c%22 font-size=%2218%22 font-family=%22Inter,sans-serif%22>📑</text><text x=%22400%22 y=%22240%22 text-anchor=%22middle%22 fill=%22%2378716c%22 font-size=%2215%22 font-family=%22Inter,sans-serif%22>Diapositivo ' + (currentSlide+1) + '.jpg</text></svg>'">
+  </div>
+  <div class="slide-nav">
+    <button class="slide-btn" onclick="prevSlide()">&#8592;</button>
+    <div>
+      <div class="slide-dots" id="slideDots"></div>
+      <div style="text-align:center;font-size:12px;color:var(--text-muted);margin-top:8px;" id="slideCounter">1 / 15</div>
+    </div>
+    <button class="slide-btn" onclick="nextSlide()">&#8594;</button>
+  </div>
+</div>
+</div>
+
+<!-- ==================== RESUMOS ==================== -->
+<div class="section" id="sec-resumos">
+<div class="container">
+  <div class="section-heading">📚 Resumos Explicativos</div>
+  <p class="section-sub">Clica em cada tema para expandir o conteúdo detalhado</p>
+
+  <!-- Tema 1 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="accordion-header" onclick="toggleAccordion('acc1')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <img src="./infografia1.jpg" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:10px;color:var(--bronze);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Tema 1</div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">Uma Viagem pela Evolução da Sismologia e a Construção da Resiliência</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-acc1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="acc1">
+      <img src="./infografia1.jpg" alt="Infografia 1" style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-bottom:20px;cursor:zoom-in;" onclick="openModal('./infografia1.jpg')" onerror="this.style.display='none'">
+      
+      <div class="info-box">💡 <strong>Ideia-chave:</strong> A sismologia nasceu do medo, mas cresceu como ciência ao serviço da segurança pública.</div>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🌋 O que é um Sismo?</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Um sismo é o resultado de uma <strong style="color:var(--text-primary);">súbita libertação de energia</strong> na crosta terrestre, geralmente causado pelo choque entre placas tectónicas. Esta energia propaga-se em forma de <em>ondas sísmicas</em>. Os três efeitos principais são: <strong style="color:var(--text-primary);">vibração do solo</strong> (colapso de estruturas), <strong style="color:var(--text-primary);">tsunamis</strong> (ondas oceânicas devastadoras) e <strong style="color:var(--text-primary);">deslizamentos de terra</strong>.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🏛️ 1755 — O Marco Zero da Sismologia</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:12px;">O terramoto de 1 de novembro de 1755 (magnitude ~9.0) é o <strong style="color:var(--text-primary);">divisor de águas</strong> da sismologia moderna. Sentido até ao Golfo de Cádis e acompanhado de tsunami, destruiu Lisboa e o Algarve.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">O <strong style="color:var(--text-primary);">Marquês de Pombal</strong> liderou a reconstrução com medidas pioneiras: inquéritos científicos sobre o fenómeno e a construção da <em>Gaiola Pombalina</em>, o primeiro sistema sismo-resistente de Portugal. As consequências foram políticas (nascimento da gestão de crises), sociais (exigência de proteção coletiva) e científicas (debate sobre causas naturais dos sismos).</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🗺️ Paul Choffat e a Primeira Carta Macrossísmica (1909)</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">Após o sismo de Benavente (1909), o geólogo <strong style="color:var(--text-primary);">Léon Paul Choffat</strong> criou a primeira carta macrossísmica de Portugal. Baseou-se nos efeitos sentidos pela população usando a <em>Escala de Mercalli</em>. Este mapa tornou-se a espinha dorsal dos estudos geológicos modernos em Portugal.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🔬 Andrija Mohorovičić e a Estrutura Interna da Terra (1909)</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">No mesmo ano, o cientista croata <strong style="color:var(--text-primary);">Andrija Mohorovičić</strong> descobriu que a Terra não é homogénea, mas composta por camadas. Ao analisar as diferenças de velocidade das ondas sísmicas no sismo de Pokuplje, identificou a <em>Descontinuidade de Moho</em> — a fronteira entre a crosta e o manto.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🚨 1969 e o Nascimento da Proteção Civil Moderna</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">O sismo de 28 de fevereiro de 1969 (magnitude 7.3, epicentro sudoeste de Sagres) impulsionou a rede sísmica nacional. Hoje, a gestão de riscos segue 6 fases do <strong style="color:var(--text-primary);">Ciclo da Catástrofe</strong>: Prevenção/Mitigação → Preparação → Alerta → Resposta → Recuperação → Pós-Catástrofe.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🏫 Os 3 Pilares da Resiliência Escolar</h3>
+      <p style="font-size:14px;color:var(--text-secondary);">1. <strong style="color:var(--text-primary);">Vulnerabilidade Estrutural</strong> — segurança física dos edifícios escolares<br>2. <strong style="color:var(--text-primary);">Capacidade da População Estudantil</strong> — ferramentas de autoproteção (exercício anual "A Terra Treme")<br>3. <strong style="color:var(--text-primary);">Educação para o Risco</strong> — Referencial integrado no currículo</p>
+    </div>
+  </div>
+
+  <!-- Tema 2 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="accordion-header" onclick="toggleAccordion('acc2')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <img src="./infografia2.jpg" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:10px;color:var(--bronze);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Tema 2</div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">Desvendando o Mundo dos Sismos</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-acc2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="acc2">
+      <img src="./infografia2.jpg" alt="Infografia 2" style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-bottom:20px;cursor:zoom-in;" onclick="openModal('./infografia2.jpg')" onerror="this.style.display='none'">
+
+      <div class="info-box">💡 <strong>Ideia-chave:</strong> Compreender a diferença entre <em>magnitude</em> (energia) e <em>intensidade</em> (danos) é fundamental para interpretar os sismos corretamente.</div>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">📍 Hipocentro vs. Epicentro</h3>
+      <table style="margin-bottom:20px;">
+        <tr><th>Conceito</th><th>Definição</th></tr>
+        <tr><td><strong>Hipocentro (Foco)</strong></td><td>Ponto de rutura inicial no interior da crosta onde a energia é libertada.</td></tr>
+        <tr><td><strong>Epicentro</strong></td><td>Ponto na superfície terrestre na vertical exata acima do hipocentro — onde o sismo é mais forte.</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🌊 Tipos de Sismos</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;"><strong style="color:var(--text-primary);">Tectónicos</strong> (mais comuns) — interação entre placas litosféricas: <em>interplacas</em> (fronteiras) ou <em>intraplacas</em> (falhas internas). <strong style="color:var(--text-primary);">Vulcânicos</strong> — movimentação de magma. <strong style="color:var(--text-primary);">Induzidos</strong> — atividade humana: extração de fluidos, barragens, testes nucleares, explosões mineiras.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">📏 Magnitude vs. Intensidade</h3>
+      <table style="margin-bottom:20px;">
+        <tr><th>Escala</th><th>Mede</th><th>Tipo</th></tr>
+        <tr><td><strong>Richter / Mw</strong></td><td>Energia libertada no hipocentro</td><td>Logarítmica (1 grau = ×32 energia)</td></tr>
+        <tr><td><strong>Mercalli</strong></td><td>Danos e perceção humana num local</td><td>Qualitativa (I a XII)</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🌍 Grandes Sismos — Casos de Referência</h3>
+      <table style="margin-bottom:20px;">
+        <tr><th>Local / Data</th><th>Magnitude</th><th>Importância</th></tr>
+        <tr><td>Valdivia, Chile (1960)</td><td>9.5 Mw</td><td>Maior sismo alguma vez registado.</td></tr>
+        <tr><td>Tohoku, Japão (2011)</td><td>9.0 Mw</td><td>Vulnerabilidade tecnológica perante tsunami.</td></tr>
+        <tr><td>Lisboa (1755)</td><td>~9.0 Mw</td><td>Marco da sismologia moderna. Gaiola Pombalina.</td></tr>
+        <tr><td>Benavente (1909)</td><td>—</td><td>Primeira carta macrossísmica. Maior nº de vítimas séc. XX em PT.</td></tr>
+        <tr><td>Portugal (1969)</td><td>7.3 Mw</td><td>Maior sismo séc. XX em Portugal. Impulsionou rede sísmica.</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🔄 Ciclo da Proteção Civil (6 Fases)</h3>
+      <p style="font-size:14px;color:var(--text-secondary);">1. <strong style="color:var(--text-primary);">Prevenção/Mitigação</strong> — ordenamento e reforço estrutural &bull; 2. <strong style="color:var(--text-primary);">Preparação</strong> — planeamento e exercícios &bull; 3. <strong style="color:var(--text-primary);">Alerta</strong> — monitorização e avisos precoce &bull; 4. <strong style="color:var(--text-primary);">Resposta</strong> — socorro &bull; 5. <strong style="color:var(--text-primary);">Recuperação</strong> — reabilitação &bull; 6. <strong style="color:var(--text-primary);">Pós-Catástrofe</strong> — lições aprendidas</p>
+    </div>
+  </div>
+
+  <!-- Tema 3 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="accordion-header" onclick="toggleAccordion('acc3')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <img src="./infografia3.jpg" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:10px;color:var(--bronze);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Tema 3</div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">50 Anos de Resiliência Sísmica em Portugal — Balanço e Diretivas Futuras</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-acc3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="acc3">
+      <img src="./infografia3.jpg" alt="Infografia 3" style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-bottom:20px;cursor:zoom-in;" onclick="openModal('./infografia3.jpg')" onerror="this.style.display='none'">
+
+      <div class="info-box">💡 <strong>Ideia-chave:</strong> O investimento em monitorização e engenharia sísmica não é um custo — é um investimento na continuidade da vida nacional.</div>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">📡 Monitorização Científica — Base da Decisão</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">A sinergia entre o <strong style="color:var(--text-primary);">IPMA</strong> (Instituto Português do Mar e da Atmosfera) e a <strong style="color:var(--text-primary);">ANEPC</strong> (Autoridade Nacional de Emergência e Proteção Civil) garante vigilância em tempo real. Lisboa e Lagos já possuem <em>simuladores de ação sísmica</em> que cruzam perigosidade com vulnerabilidade do edificado.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">⚖️ Sismos Interplacas vs. Intraplacas</h3>
+      <table style="margin-bottom:20px;">
+        <tr><th>Tipo</th><th>Exemplos</th><th>Características</th></tr>
+        <tr><td><strong>Interplacas</strong></td><td>1755, 1969</td><td>Magnitudes extremas, longos períodos de retorno</td></tr>
+        <tr><td><strong>Intraplacas</strong></td><td>Benavente 1909</td><td>Focos superficiais (2-20 km), maior energia à superfície</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🏗️ Diretivas para o Futuro</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">1. <strong style="color:var(--text-primary);">Reabilitação Estrutural</strong> — reforço sísmico obrigatório em zonas de Risco Elevado (PNRRC)</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">2. <strong style="color:var(--text-primary);">Sinalética Normalizada</strong> — rotas de evacuação de tsunami (coordenação APA + DGAM)</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">3. <strong style="color:var(--text-primary);">GT2 — Peritos pós-sismo</strong> — avaliação de danos, restrições de acesso, realojamento</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🎯 Tipos de Exercícios de Validação</h3>
+      <table>
+        <tr><th>Tipo</th><th>Objetivo</th></tr>
+        <tr><td><strong>Table-Top (TTX)</strong></td><td>Treino de decisão estratégica e validação de planos</td></tr>
+        <tr><td><strong>Command Post (CPX)</strong></td><td>Teste de comunicações e coordenação entre entidades</td></tr>
+        <tr><td><strong>Live Exercise (LIVEX)</strong></td><td>Mobilização real de meios no terreno</td></tr>
+        <tr><td><strong>NEAMWave</strong></td><td>Exercício bienal UNESCO para alerta de tsunami</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Tema 4 -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="accordion-header" onclick="toggleAccordion('acc4')">
+      <div style="display:flex;align-items:center;gap:14px;">
+        <img src="./infografia4.jpg" alt="" style="width:56px;height:40px;object-fit:cover;border-radius:6px;" onerror="this.style.display='none'">
+        <div>
+          <div style="font-size:10px;color:var(--bronze);font-weight:700;text-transform:uppercase;letter-spacing:0.07em;margin-bottom:4px;">Tema 4</div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">Gestão Operacional do Risco Sísmico no Algarve</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-acc4" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="acc4">
+      <img src="./infografia4.jpg" alt="Infografia 4" style="width:100%;max-height:260px;object-fit:contain;border-radius:8px;margin-bottom:20px;cursor:zoom-in;" onclick="openModal('./infografia4.jpg')" onerror="this.style.display='none'">
+
+      <div class="info-box">💡 <strong>Atenção:</strong> No Algarve, a janela de evacuação após um sismo submarino é de apenas <strong>15 a 30 minutos</strong>. A sinalética é a única proteção eficaz.</div>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">⚠️ Principais Ameaças Sísmicas no Algarve</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">🔴 <strong style="color:var(--text-primary);">Banco de Gorringe</strong> — maior potencial de magnitude (1969: 7.3; 1755: ~9.0). Risco de tsunami.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;">🟠 <strong style="color:var(--text-primary);">Falha de Loulé</strong> — sismos de 1722 e 1856.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;">🟠 <strong style="color:var(--text-primary);">Falha de Portimão</strong> — associada ao sismo de 1719.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🔄 Ciclo de Gestão do Risco — Entidades Responsáveis</h3>
+      <table style="margin-bottom:20px;">
+        <tr><th>Fase</th><th>Entidades</th></tr>
+        <tr><td>Prevenção / Mitigação</td><td>ANEPC, IPMA, Autarquias, APA</td></tr>
+        <tr><td>Preparação</td><td>ANEPC, Bombeiros, Municípios</td></tr>
+        <tr><td>Alerta</td><td>IPMA, ANEPC, Autoridade Marítima</td></tr>
+        <tr><td>Resposta</td><td>ANEPC, INEM, Forças de Segurança</td></tr>
+        <tr><td>Recuperação</td><td>Governo, Autarquias, Operadores de Redes</td></tr>
+        <tr><td>Pós-Catástrofe</td><td>ANEPC, Comunidade Científica</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">🏫 Grupos de Trabalho Especializados</h3>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:8px;"><strong style="color:var(--text-primary);">GT1</strong> — Avaliação de estruturas de ensino no Algarve. Modelo nacional para reabilitação de escolas.</p>
+      <p style="font-size:14px;color:var(--text-secondary);margin-bottom:16px;"><strong style="color:var(--text-primary);">GT2</strong> — Peritos em avaliação de danos pós-evento. Determina restrições de acesso e realojamento.</p>
+
+      <h3 style="font-size:16px;margin-bottom:10px;color:var(--bronze);">👨‍👩‍👧 O Cidadão como Primeiro Agente de Proteção Civil</h3>
+      <p style="font-size:14px;color:var(--text-secondary);">Exercício <strong style="color:var(--text-primary);">"A Terra Treme"</strong>: os 3 gestos básicos — <em>Baixar, Proteger e Aguardar</em>. Referencial de Educação para o Risco nas escolas. Kits de autoproteção familiares.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== QUIZ ==================== -->
+<div class="section" id="sec-quiz">
+<div class="container">
+  <div class="section-heading">❓ Questionário</div>
+  <p class="section-sub">Responde às questões e recebe feedback imediato. Vários formatos de questões.</p>
+
+  <!-- Stats bar -->
+  <div class="stats-bar" id="quizStats">
+    <div class="stat-item">
+      <div class="stat-number" id="statTotal">0/10</div>
+      <div class="stat-label">Respondidas</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color:#22c55e;" id="statCorrect">0</div>
+      <div class="stat-label">Corretas ✓</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color:#ef4444;" id="statWrong">0</div>
+      <div class="stat-label">Erradas ✗</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number" style="color:var(--text-muted);" id="statSkipped">10</div>
+      <div class="stat-label">Ignoradas</div>
+    </div>
+  </div>
+  <div class="progress-bar"><div class="progress-fill" id="quizProgress" style="width:0%"></div></div>
+
+  <div id="quizContainer"></div>
+
+  <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;">
+    <button class="btn-bronze" onclick="reviewQuiz()">🔍 Rever Questionário</button>
+    <button class="btn-ghost" onclick="resetQuiz()">↺ Responder Novamente</button>
+  </div>
+</div>
+</div>
+
+<!-- ==================== FLASHCARDS ==================== -->
+<div class="section" id="sec-flashcards">
+<div class="container">
+  <div class="section-heading">🃏 Flashcards</div>
+  <p class="section-sub">Clica no cartão para ver a resposta. Navega com as setas ou teclado.</p>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div style="font-size:14px;color:var(--text-muted);">Cartão <span id="fcCurrent">1</span> de <span id="fcTotal">77</span></div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-ghost" onclick="shuffleCards()">🔀 Baralhar</button>
+      <button class="btn-ghost" onclick="resetCards()">↺ Reiniciar</button>
+    </div>
+  </div>
+
+  <div class="progress-bar" style="margin-bottom:24px;"><div class="progress-fill" id="fcProgress" style="width:1.3%"></div></div>
+
+  <div class="flashcard-container" onclick="flipCard()">
+    <div class="flashcard" id="flashcard" style="min-height:220px;">
+      <div class="flashcard-face flashcard-front">
+        <div>
+          <div style="font-size:11px;color:var(--bronze);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Pergunta</div>
+          <div id="fcQuestion" style="font-family:'Merriweather',serif;font-size:17px;line-height:1.6;"></div>
+        </div>
+        <div class="flashcard-hint">Clica para ver a resposta 🔄</div>
+      </div>
+      <div class="flashcard-face flashcard-back">
+        <div>
+          <div style="font-size:11px;color:#e8bd6e;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Resposta</div>
+          <div id="fcAnswer" style="font-size:15px;color:#f5f5f4;line-height:1.7;"></div>
+        </div>
+        <div class="flashcard-hint" style="color:#a8a29e;">Clica para virar 🔄</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+    <button class="btn-ghost" onclick="prevCard()" style="min-width:56px;min-height:48px;font-size:20px;">←</button>
+    <button class="btn-bronze" onclick="markKnown()" id="btnKnown" style="min-width:120px;">✓ Sei</button>
+    <button class="btn-ghost" onclick="markUnknown()" id="btnUnknown">✗ Rever</button>
+    <button class="btn-ghost" onclick="nextCard()" style="min-width:56px;min-height:48px;font-size:20px;">→</button>
+  </div>
+
+  <div style="text-align:center;margin-top:16px;font-size:13px;color:var(--text-muted);">Sabia: <span id="fcKnown" style="color:#22c55e;font-weight:700;">0</span> | A rever: <span id="fcReview" style="color:#f59e0b;font-weight:700;">0</span></div>
+</div>
+</div>
+
+<!-- ==================== QUIZ CARDS ==================== -->
+<div class="section" id="sec-quizcards">
+<div class="container">
+  <div class="section-heading">🎯 Quiz Cards</div>
+  <p class="section-sub">O cartão só se vira quando seleciones a resposta correta!</p>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:12px;">
+    <div style="font-size:14px;color:var(--text-muted);">Questão <span id="qcCurrent">1</span> de <span id="qcTotal">10</span></div>
+    <button class="btn-ghost" onclick="resetQC()">↺ Reiniciar</button>
+  </div>
+
+  <div id="qcContainer"></div>
+
+  <div style="display:flex;gap:12px;justify-content:center;margin-top:20px;">
+    <button class="btn-ghost" onclick="prevQC()" style="min-width:56px;font-size:20px;">←</button>
+    <button class="btn-ghost" onclick="nextQC()" style="min-width:56px;font-size:20px;">→</button>
+  </div>
+</div>
+</div>
+
+<!-- ==================== LABORATÓRIO ==================== -->
+<div class="section" id="sec-laboratorio">
+<div class="container">
+  <div class="section-heading">🔬 Laboratório Visual</div>
+  <p class="section-sub">Guias práticos de segurança sísmica</p>
+
+  <!-- Kit emergência -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="accordion-header" onclick="toggleAccordion('lab1')">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:28px;">🎒</span>
+        <div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">Como preparar um Kit de Emergência Familiar Completo?</div>
+          <div style="font-size:13px;color:var(--text-muted);">Para 3 dias mínimo de autossuficiência</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-lab1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="lab1">
+      <div class="info-box">🎯 Objetivo: o kit deve garantir a sobrevivência da família durante pelo menos <strong>72 horas</strong> sem acesso a serviços básicos.</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin-top:16px;">
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:12px;">💧 Água e Alimentação</div>
+          <div class="lab-step"><div class="lab-num">1</div><div style="font-size:13px;color:var(--text-secondary);">Água engarrafada: 2 litros por pessoa por dia</div></div>
+          <div class="lab-step"><div class="lab-num">2</div><div style="font-size:13px;color:var(--text-secondary);">Alimentos não perecíveis: conservas, cereais, frutos secos</div></div>
+          <div class="lab-step"><div class="lab-num">3</div><div style="font-size:13px;color:var(--text-secondary);">Abre-latas manual e utensílios descartáveis</div></div>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:12px;">🏥 Saúde e Higiene</div>
+          <div class="lab-step"><div class="lab-num">1</div><div style="font-size:13px;color:var(--text-secondary);">Estojo de primeiros socorros completo</div></div>
+          <div class="lab-step"><div class="lab-num">2</div><div style="font-size:13px;color:var(--text-secondary);">Medicação habitual (para 5-7 dias)</div></div>
+          <div class="lab-step"><div class="lab-num">3</div><div style="font-size:13px;color:var(--text-secondary);">Toalhetes de higiene, papel higiénico, desinfetante</div></div>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:12px;">🔦 Equipamentos</div>
+          <div class="lab-step"><div class="lab-num">1</div><div style="font-size:13px;color:var(--text-secondary);">Lanterna + pilhas extra (ou dinamo)</div></div>
+          <div class="lab-step"><div class="lab-num">2</div><div style="font-size:13px;color:var(--text-secondary);">Rádio a pilhas — única fonte de info sem eletricidade</div></div>
+          <div class="lab-step"><div class="lab-num">3</div><div style="font-size:13px;color:var(--text-secondary);">Apito — para sinalizar localização em escombros</div></div>
+          <div class="lab-step"><div class="lab-num">4</div><div style="font-size:13px;color:var(--text-secondary);">Cobertor de sobrevivência, luvas, calçado resistente</div></div>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:12px;">📄 Documentos e Comunicação</div>
+          <div class="lab-step"><div class="lab-num">1</div><div style="font-size:13px;color:var(--text-secondary);">Cópias de documentos (BI, seguro, cartão saúde) em saco impermeável</div></div>
+          <div class="lab-step"><div class="lab-num">2</div><div style="font-size:13px;color:var(--text-secondary);">Dinheiro em notas pequenas (caixas multibanco podem falhar)</div></div>
+          <div class="lab-step"><div class="lab-num">3</div><div style="font-size:13px;color:var(--text-secondary);">Lista de contactos impressa (familiares, médico, emergência)</div></div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top:16px;">⚠️ <strong>Importante:</strong> Revê o kit regularmente! Verifica os prazos de validade dos alimentos, água e pilhas. Adiciona itens específicos para bebés, idosos ou pets.</div>
+    </div>
+  </div>
+
+  <!-- Protocolos durante e após -->
+  <div class="card" style="margin-bottom:20px;">
+    <div class="accordion-header" onclick="toggleAccordion('lab2')">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:28px;">🚨</span>
+        <div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">Protocolos de Segurança Durante e Após um Sismo</div>
+          <div style="font-size:13px;color:var(--text-muted);">O que fazer antes que seja tarde</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-lab2" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="lab2">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+        
+        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(34,197,94,0.3);">
+          <div style="background:rgba(34,197,94,0.12);padding:16px 20px;font-weight:700;color:#86efac;display:flex;align-items:center;gap:8px;">🟢 ANTES do Sismo — Prevenção</div>
+          <div style="padding:16px 20px;">
+            <div class="lab-step"><div class="lab-num" style="background:#22c55e;">1</div><div style="font-size:13px;color:var(--text-secondary);">Fixa móveis pesados e estantes às paredes</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#22c55e;">2</div><div style="font-size:13px;color:var(--text-secondary);">Coloca objetos pesados nas prateleiras mais baixas</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#22c55e;">3</div><div style="font-size:13px;color:var(--text-secondary);">Define um ponto de encontro familiar</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#22c55e;">4</div><div style="font-size:13px;color:var(--text-secondary);">Evita colocar camas junto a janelas</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#22c55e;">5</div><div style="font-size:13px;color:var(--text-secondary);">Prepara o kit de emergência</div></div>
+          </div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(251,191,36,0.3);">
+          <div style="background:rgba(251,191,36,0.12);padding:16px 20px;font-weight:700;color:#fde68a;display:flex;align-items:center;gap:8px;">🟡 DURANTE o Sismo — Os 3 Gestos</div>
+          <div style="padding:16px 20px;">
+            <div style="text-align:center;padding:20px;background:rgba(201,127,34,0.1);border-radius:8px;margin-bottom:16px;">
+              <div style="font-size:32px;margin-bottom:8px;">⬇️🛡️⏳</div>
+              <div style="font-family:'Merriweather',serif;font-size:18px;font-weight:700;color:var(--bronze);">BAIXAR · PROTEGER · AGUARDAR</div>
+            </div>
+            <div class="lab-step"><div class="lab-num" style="background:#f59e0b;">1</div><div style="font-size:13px;color:var(--text-secondary);"><strong style="color:var(--text-primary);">BAIXAR</strong> — Deita-te ou ajoelha-te para não cair</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#f59e0b;">2</div><div style="font-size:13px;color:var(--text-secondary);"><strong style="color:var(--text-primary);">PROTEGER</strong> — Cobre a cabeça, pescoço e olhos</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#f59e0b;">3</div><div style="font-size:13px;color:var(--text-secondary);"><strong style="color:var(--text-primary);">AGUARDAR</strong> — Debaixo de mesa robusta, vão de porta interior ou canto de parede-mestra</div></div>
+            <div style="margin-top:12px;padding:12px;background:rgba(239,68,68,0.1);border-radius:6px;font-size:12px;color:#fca5a5;">❌ Nunca uses o elevador! Não corras para fora durante o abalo.</div>
+          </div>
+        </div>
+
+        <div style="border-radius:10px;overflow:hidden;border:1px solid rgba(239,68,68,0.3);">
+          <div style="background:rgba(239,68,68,0.12);padding:16px 20px;font-weight:700;color:#fca5a5;display:flex;align-items:center;gap:8px;">🔴 APÓS o Sismo — Primeiras Ações</div>
+          <div style="padding:16px 20px;">
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">1</div><div style="font-size:13px;color:var(--text-secondary);">Desliga GÁS, ELETRICIDADE e ÁGUA</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">2</div><div style="font-size:13px;color:var(--text-secondary);">Não acendas fósforos (pode haver fugas de gás!)</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">3</div><div style="font-size:13px;color:var(--text-secondary);">Calça sapatos resistentes antes de sair</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">4</div><div style="font-size:13px;color:var(--text-secondary);">Usa SMS em vez de chamadas (rede menos sobrecarregada)</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">5</div><div style="font-size:13px;color:var(--text-secondary);">Liga 112 apenas para emergências graves</div></div>
+            <div class="lab-step"><div class="lab-num" style="background:#ef4444;">6</div><div style="font-size:13px;color:var(--text-secondary);">Em zona costeira: dirige-te para terreno elevado (risco de tsunami)</div></div>
+            <div style="margin-top:12px;padding:12px;background:rgba(239,68,68,0.1);border-radius:6px;font-size:12px;color:#fca5a5;">⚠️ Atenção a réplicas! Podem ocorrer horas ou dias após o abalo principal.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box" style="margin-top:16px;">🌊 <strong>Sinal de Tsunami:</strong> O mar recua subitamente deixando o fundo à vista. Tens <strong>15-30 minutos</strong> para te afastar! Sobe imediatamente para terreno elevado.</div>
+    </div>
+  </div>
+
+  <!-- Se estiveres em locais diferentes -->
+  <div class="card">
+    <div class="accordion-header" onclick="toggleAccordion('lab3')">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span style="font-size:28px;">📍</span>
+        <div>
+          <div style="font-weight:700;font-size:16px;font-family:'Merriweather',serif;">O Que Fazer Consoante o Teu Local Durante um Sismo?</div>
+          <div style="font-size:13px;color:var(--text-muted);">Guia prático por situação</div>
+        </div>
+      </div>
+      <svg class="accordion-icon" id="icon-lab3" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+    <div class="accordion-body" id="lab3">
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;">
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🏠 Em Casa</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Abriga-te debaixo de mesa robusta ou no vão de uma porta interior. Afasta-te das janelas. Não corras para fora.</p>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🏫 Na Escola</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Segue as instruções do professor. Pratica os 3 gestos: Baixar, Proteger, Aguardar. Não uses as escadas durante o abalo.</p>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🚗 No Carro</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Para num local aberto, longe de edifícios, pontes e postes. Permanece dentro do carro. Aguarda o fim do abalo.</p>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🌳 Na Rua</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Afasta-te de edifícios, muros, postes e árvores. Dirige-te a um local aberto. Protege a cabeça.</p>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🎭 Em Local Público</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Fica dentro do edifício e protege-te. Sai apenas com calma após o abalo terminar. Não entres em pânico.</p>
+        </div>
+        <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:16px;">
+          <div style="font-weight:700;color:var(--bronze);margin-bottom:10px;">🌊 Na Praia</div>
+          <p style="font-size:13px;color:var(--text-secondary);">Afasta-te imediatamente da água e sobe para terreno elevado. O recuo do mar é sinal de tsunami. Não esperes!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================== GLOSSÁRIO ==================== -->
+<div class="section" id="sec-glossario">
+<div class="container">
+  <div class="section-heading">📖 Glossário</div>
+  <p class="section-sub">Termos técnicos explicados de forma clara e acessível</p>
+
+  <div style="margin-bottom:16px;">
+    <input type="text" id="glossarySearch" placeholder="🔍 Pesquisar termo..." 
+      style="width:100%;padding:12px 16px;background:var(--stone-card);border:1px solid var(--stone-border);border-radius:8px;color:var(--text-primary);font-size:14px;font-family:'Inter',sans-serif;"
+      oninput="filterGlossary(this.value)"
+      onfocus="this.style.borderColor='var(--bronze)'"
+      onblur="this.style.borderColor='var(--stone-border)'">
+  </div>
+
+  <div class="card" id="glossaryList"></div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="imgModal" onclick="closeModal()">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <img id="modalImg" src="" alt="Imagem ampliada">
+  </div>
+</div>
+
+<script>
+// ==================== DATA ====================
+
+const quizData = [
+  {
+    id: 1,
+    type: 'multiple',
+    level: 'basic',
+    question: 'Qual é a principal distinção entre a Escala de Magnitude de Momento (Mw) e a Escala de Mercalli?',
+    options: [
+      'Ambas medem a mesma variável física, mas a Mercalli usa escala logarítmica de base 10.',
+      'A Mercalli é uma medição matemática absoluta, enquanto a Mw depende de observações visuais.',
+      'A Mw mede a energia libertada no hipocentro, enquanto a Mercalli mede a intensidade dos danos e a perceção humana num local.',
+      'A Mw é usada apenas para sismos pequenos, enquanto a Mercalli é para grandes catástrofes.'
+    ],
+    correct: 2,
+    hint: 'Pensa na diferença entre a força intrínseca de um fenómeno e o impacto que ele tem nas pessoas e edifícios.',
+    explanation: 'A <strong>Escala de Magnitude Mw</strong> mede a energia física libertada no hipocentro — é uma medida objetiva e logarítmica (1 grau = 32× mais energia). A <strong>Escala de Mercalli</strong> mede o impacto observado num local específico: danos nas estruturas e perceção humana. Um sismo pode ter alta magnitude num deserto e intensidade zero; ou ter magnitude moderada mas intensidade alta numa cidade com construções frágeis.',
+    correction: null
+  },
+  {
+    id: 2,
+    type: 'multiple',
+    level: 'basic',
+    question: 'De acordo com a profundidade do hipocentro, como são classificados os sismos que ocorrem entre os 70 e os 350 km?',
+    options: ['Sismos profundos', 'Sismos superficiais', 'Sismos intermédios', 'Sismos de descontinuidade'],
+    correct: 2,
+    hint: 'Esta categoria situa-se entre os eventos mais próximos da superfície e os que ocorrem nas camadas mais internas do manto.',
+    explanation: 'Os sismos classificam-se pela profundidade do hipocentro: <strong>Superficiais</strong> (0-70 km) — os mais destrutivos; <strong>Intermédios</strong> (70-350 km); <strong>Profundos</strong> (350-700 km). Os sismos superficiais são geralmente mais perigosos porque a energia dissipa-se menos antes de chegar à superfície.',
+    correction: null
+  },
+  {
+    id: 3,
+    type: 'multiple',
+    level: 'intermediate',
+    question: 'Qual foi o impacto científico mais relevante do sismo de 28 de fevereiro de 1969 em Portugal?',
+    options: [
+      'O desenvolvimento da primeira carta macrossísmica de Portugal por Paul Choffat.',
+      'A descoberta da Descontinuidade de Mohorovičić.',
+      'A confirmação de que Portugal não possui risco de maremotos no território continental.',
+      'Um grande impulso para a melhoria da rede sísmica nacional e o reforço da construção sismo-resistente.'
+    ],
+    correct: 3,
+    hint: 'Considera as lições de engenharia e monitorização aprendidas com o maior evento sísmico do século XX em Portugal.',
+    explanation: 'O sismo de 1969 (magnitude 7.3) foi o maior registado em Portugal no século XX. O seu impacto impulsionou dois avanços fundamentais: a <strong>modernização da rede sísmica nacional</strong> para monitorizar o território em tempo real, e a <strong>criação de normas obrigatórias de construção sismo-resistente</strong> para reduzir a vulnerabilidade do edificado. A carta macrossísmica foi obra de Choffat após 1909; a Moho foi descoberta por Mohorovičić também em 1909.',
+    correction: 'A primeira carta macrossísmica foi criada por Choffat após o sismo de Benavente (1909), não de 1969.'
+  },
+  {
+    id: 4,
+    type: 'multiple',
+    level: 'intermediate',
+    question: 'A que fenómeno se deve a descoberta da transição entre a crosta e o manto da Terra?',
+    options: [
+      'Ao estudo da falha de Santo André na Califórnia após o sismo de 1906.',
+      'À análise dos gases metano e hélio emitidos durante erupções vulcânicas.',
+      'Às medições de gravidade efetuadas no Banco de Gorringe.',
+      'À análise das propriedades mecânicas dos materiais durante o sismo de Pokuplje em 1909.'
+    ],
+    correct: 3,
+    hint: 'O nome desta transição homenageia o cientista croata que estudou um sismo específico há mais de um século.',
+    explanation: 'O cientista croata <strong>Andrija Mohorovičić</strong> analisou as ondas sísmicas do sismo de Pokuplje (1909) e observou que as ondas viajavam mais rápido a determinada profundidade — o que indicava uma mudança de material. Descobriu assim a <strong>Descontinuidade de Moho</strong>, fronteira entre a crosta terrestre (litosfera rígida) e o manto superior (mais denso), situada a profundidades variáveis entre 5 km (fundo oceânico) e 70 km (sob as montanhas).',
+    correction: null
+  },
+  {
+    id: 5,
+    type: 'multiple',
+    level: 'basic',
+    question: 'O que caracteriza os "sismos induzidos"?',
+    options: [
+      'São vibrações resultantes da atividade humana, como o enchimento de albufeiras ou extração de recursos.',
+      'São sismos que ocorrem obrigatoriamente a profundidades superiores a 700 km.',
+      'São sismos causados exclusivamente pelo movimento natural das placas tectónicas.',
+      'São eventos sísmicos que ocorrem apenas no Anel de Fogo do Pacífico.'
+    ],
+    correct: 0,
+    hint: 'Pensa no papel da intervenção humana no equilíbrio das pressões e tensões subterrâneas.',
+    explanation: 'Os <strong>sismos induzidos</strong> são causados pela atividade humana: extração/injeção de fluidos (gás, petróleo, água), enchimento de grandes barragens (o peso da água altera tensões nas falhas), testes nucleares subterrâneos, e explosões mineiras. São preocupantes porque ocorrem frequentemente em regiões sem historial sísmico, onde as populações estão menos preparadas e os edifícios menos protegidos.',
+    correction: null
+  },
+  {
+    id: 6,
+    type: 'multiple',
+    level: 'basic',
+    question: 'No ciclo da proteção civil, em que fase se inserem a "previsão de riscos e modelização" e a "sensibilização do público"?',
+    options: ['Recuperação', 'Prevenção e Mitigação', 'Alerta', 'Resposta'],
+    correct: 1,
+    hint: 'Estas atividades ocorrem muito antes de qualquer sismo ser registado, visando diminuir a vulnerabilidade da sociedade.',
+    explanation: 'O <strong>Ciclo da Catástrofe</strong> tem 6 fases: Prevenção/Mitigação → Preparação → Alerta → Resposta → Recuperação → Pós-Catástrofe. A fase de <strong>Prevenção e Mitigação</strong> é a primeira e inclui: previsão e modelização de riscos, avaliação e mapeamento, ordenamento do território, medidas estruturais e sensibilização pública. É a fase mais longa e a que mais salva vidas a longo prazo.',
+    correction: null
+  },
+  {
+    id: 7,
+    type: 'multiple',
+    level: 'basic',
+    question: 'Qual é a percentagem aproximada de sismos mundiais que ocorrem no "Anel de Fogo do Pacífico"?',
+    options: ['100%', '50%', '75%', '90%'],
+    correct: 3,
+    hint: 'Esta região é a mais ativa do mundo, cobrindo cerca de 40 mil quilómetros de limites de placas.',
+    explanation: 'O <strong>Anel de Fogo do Pacífico</strong> é uma zona em forma de ferradura com ~40 000 km de extensão que rodeia o Oceano Pacífico. Coincide com os limites de várias placas tectónicas onde ocorre subducção intensa. Concentra <strong>cerca de 90% de todos os sismos do planeta</strong> e 75% dos vulcões ativos. Portugal, estando na fronteira das placas Africana e Euroasiática, não pertence ao Anel de Fogo, mas tem uma sismicidade relevante.',
+    correction: null
+  },
+  {
+    id: 8,
+    type: 'multiple',
+    level: 'basic',
+    question: 'Qual dos seguintes gases é mencionado como sinal precursor de um sismo, devido ao aumento da sua emissão?',
+    options: ['Rádon', 'Oxigénio', 'Nitrogénio atmosférico', 'Árgon'],
+    correct: 0,
+    hint: 'Procura um gás radioativo natural que se liberta das rochas quando estas começam a sofrer pressões elevadas.',
+    explanation: 'O <strong>Rádon (Rn)</strong> é um gás nobre radioativo, naturalmente presente nas rochas. Quando a crosta terrestre sofre pressões crescentes antes de um sismo, as microfraturas nas rochas aumentam e libertam mais rádon para o solo e a água. Medir o aumento de rádon em fontes e poços pode ser um indicador precursor sísmico. Contudo, a previsão de sismos continua a ser cientificamente muito difícil.',
+    correction: null
+  },
+  {
+    id: 9,
+    type: 'multiple',
+    level: 'basic',
+    question: 'De acordo com os materiais, qual é a principal distinção geográfica entre o hipocentro e o epicentro de um sismo?',
+    options: [
+      'O hipocentro é o ponto de rutura inicial no interior da Terra, enquanto o epicentro é o ponto no solo diretamente acima deste.',
+      'O epicentro é o ponto onde as placas tectónicas colidem, enquanto o hipocentro é a falha geológica resultante.',
+      'O epicentro localiza-se na crosta oceânica, enquanto o hipocentro ocorre sempre na crosta continental.',
+      'O hipocentro refere-se à zona de danos máximos, enquanto o epicentro é onde o sismo é registado pelos sismógrafos.'
+    ],
+    correct: 0,
+    hint: 'Pensa na diferença entre a profundidade onde o fenómeno começa e a sua marcação num mapa de superfície.',
+    explanation: 'O <strong>Hipocentro (ou Foco)</strong> é o ponto no interior da Terra onde ocorre a rutura e a libertação de energia — pode estar a dezenas ou centenas de km de profundidade. O <strong>Epicentro</strong> é a projeção vertical do hipocentro na superfície terrestre — é o ponto do mapa onde o sismo é sentido com maior intensidade. Em mapas sísmicos, marcamos o epicentro com uma estrela ou círculo.',
+    correction: null
+  },
+  {
+    id: 10,
+    type: 'multiple',
+    level: 'basic',
+    question: 'No contexto da educação para o risco, qual é o principal objetivo do exercício anual "A Terra Treme"?',
+    options: [
+      'Prever a data exata do próximo grande sismo em Portugal.',
+      'Distribuir kits de emergência e alimentos a toda a população escolar.',
+      'Certificar se os edifícios escolares são resistentes a sismos de magnitude 9.0.',
+      'Treinar os três gestos básicos de autoproteção: Baixar, Proteger e Aguardar.'
+    ],
+    correct: 3,
+    hint: 'O nome do exercício sugere a simulação de um evento real e a necessidade de saber agir fisicamente no momento.',
+    explanation: 'O exercício <strong>"A Terra Treme"</strong> é realizado anualmente em Portugal e mobiliza mais de meio milhão de cidadãos (alunos e professores). O seu objetivo é treinar a resposta imediata perante um sismo: os <strong>3 gestos básicos</strong> — <em>Baixar</em> (para não cair), <em>Proteger</em> (cabeça, pescoço e olhos) e <em>Aguardar</em> (num local seguro até o abalo terminar). A memória muscular criada pelos exercícios substitui o pânico por ação consciente.',
+    correction: null
+  }
+];
+
+const quizCardsData = [
+  { q: 'O que são ondas P e ondas S num sismo?', options: ['Tipos de placas tectónicas', 'Tipos de ondas sísmicas — P (primárias/compressão) e S (secundárias/cisalhamento)', 'Escalas de medição', 'Fases do ciclo da catástrofe'], correct: 1 },
+  { q: 'Quem foi o Marquês de Pombal e qual o seu contributo para a sismologia?', options: ['Um sismólogo que descobriu a Moho', 'Um líder político que reconstruiu Lisboa após 1755 com medidas sismo-resistentes pioneiras', 'O criador da Escala de Mercalli', 'O fundador da ANEPC'], correct: 1 },
+  { q: 'Qual a velocidade aproximada de um tsunami em águas profundas?', options: ['10-20 km/h', '100-200 km/h', '800-900 km/h', '5000 km/h'], correct: 2 },
+  { q: 'O que é a Gaiola Pombalina?', options: ['Um tipo de tsunami', 'Sistema de construção sismo-resistente em madeira criado após 1755', 'Uma escala sísmica', 'Um instrumento de medição'], correct: 1 },
+  { q: 'Qual é a função principal do IPMA na gestão sísmica?', options: ['Construir edifícios resistentes', 'Monitorizar e emitir alertas em tempo real sobre sismos e tsunamis', 'Gerir hospitais após catástrofes', 'Criar leis de ordenamento do território'], correct: 1 },
+  { q: 'O que é o SIPE (Sistema de Informação de Planeamento de Emergência)?', options: ['Um sismógrafo digital', 'Plataforma para alojamento de Planos de Emergência Municipais', 'Uma rede de comunicações de emergência', 'Um simulador de tsunamis'], correct: 1 },
+  { q: 'Qual é o sismo de maior magnitude registado em Portugal no século XX?', options: ['Benavente 1909', 'Lisboa 1755', 'Sismo de 28 de fevereiro de 1969 (7.3 Mw)', 'Algarve 1722'], correct: 2 },
+  { q: 'O que é o exercício NEAMWave?', options: ['Exercício de evacuação escolar anual', 'Exercício bienal COI-UNESCO para validação do sistema de alerta de tsunami', 'Simulação de terremoto à escala real no Algarve', 'Teste de comunicações entre municípios'], correct: 1 },
+  { q: 'Que tipo de solo amplifica mais as ondas sísmicas?', options: ['Rocha calcária sólida', 'Granito', 'Solos moles como aluviões ou zonas de aterro', 'Areia seca no deserto'], correct: 2 },
+  { q: 'Qual é o sinal natural na costa que pode anteceder a chegada de um tsunami?', options: ['Chuva intensa', 'O recuo súbito do mar, deixando o fundo à vista', 'Tremor de terra prolongado', 'Aumento da temperatura da água'], correct: 1 }
+];
+
+const glossaryData = [
+  { term: 'ANEPC', def: 'Autoridade Nacional de Emergência e Proteção Civil — entidade responsável pelo planeamento, coordenação e execução das políticas de proteção civil em Portugal.' },
+  { term: 'Anel de Fogo', def: 'Zona em forma de ferradura no Oceano Pacífico (~40 000 km) onde ocorre cerca de 90% dos sismos do mundo, coincidindo com os limites das placas tectónicas.' },
+  { term: 'Astenosfera', def: 'Camada plástica do manto superior sobre a qual as placas tectónicas flutuam e se deslocam lentamente.' },
+  { term: 'Banco de Gorringe', def: 'Monte submarino localizado a ~250 km a sudoeste do Cabo de São Vicente — principal fonte de sismos de grande magnitude que afetam Portugal, associado aos eventos de 1755 e 1969.' },
+  { term: 'Carta Macrossísmica', def: 'Mapa que regista os efeitos de um sismo sentidos pela população e os danos observados, usando a Escala de Mercalli para avaliar a intensidade em diferentes pontos.' },
+  { term: 'Construção Sismo-Resistente', def: 'Técnicas de engenharia e normas de edificação para permitir que estruturas resistam ou se deformem de forma controlada perante as forças de um sismo, protegendo os ocupantes.' },
+  { term: 'Descontinuidade de Moho', def: 'Fronteira geológica que separa a crosta terrestre do manto superior. Identificada por Andrija Mohorovičić em 1909 através da análise da velocidade das ondas sísmicas.' },
+  { term: 'Epicentro', def: 'Ponto na superfície terrestre localizado na vertical exata acima do hipocentro — onde o sismo é geralmente sentido com maior intensidade.' },
+  { term: 'Escala de Mercalli', def: 'Escala qualitativa que mede a intensidade de um sismo baseada nos danos observados nas estruturas e na perceção humana, variando de I (imperceptível) a XII (destruição total).' },
+  { term: 'Escala de Richter', def: 'Escala logarítmica criada por Charles Richter que mede a magnitude (amplitude das ondas sísmicas) — normalmente usada para sismos de magnitude inferior a 5.' },
+  { term: 'Falha Geológica', def: 'Fratura na crosta terrestre ao longo da qual ocorreu deslocamento relativo entre blocos rochosos. Nas falhas geológicas activas, a acumulação de tensões origina sismos.' },
+  { term: 'Gaiola Pombalina', def: 'Sistema construtivo sismo-resistente em madeira desenvolvido e aplicado na reconstrução de Lisboa após o terramoto de 1755, por ordem do Marquês de Pombal.' },
+  { term: 'Hipocentro', def: 'Ponto no interior da Terra onde ocorre a rutura inicial e a libertação súbita de energia sísmica. Também designado "foco".' },
+  { term: 'IPMA', def: 'Instituto Português do Mar e da Atmosfera — responsável pela monitorização sísmica e emissão de alertas de tsunami em Portugal.' },
+  { term: 'Magnitude de Momento (Mw)', def: 'Escala mais rigorosa e usada atualmente para medir sismos fortes. É logarítmica — um aumento de 1 grau representa ~32 vezes mais energia libertada.' },
+  { term: 'Rádon', def: 'Gás nobre radioativo natural. Um aumento anómalo da sua emissão no solo pode indicar pressões crescentes nas rochas e ser um sinal precursor de sismo.' },
+  { term: 'Réplicas', def: 'Sismos de menor magnitude que ocorrem após o abalo principal, podendo durar horas, dias ou semanas. Podem agravar danos em estruturas já fragilizadas.' },
+  { term: 'Sismicidade', def: 'Frequência, tipo e dimensão dos sismos registados numa determinada região ao longo de um período de tempo.' },
+  { term: 'Sismógrafo', def: 'Instrumento científico que deteta, amplia e regista as ondas sísmicas, permitindo determinar a localização, magnitude e características de um sismo.' },
+  { term: 'Tsunami', def: 'Onda oceânica gigante gerada principalmente por sismos submarinos que deslocam verticalmente uma grande coluna de água. Em mar aberto viaja a ~800-900 km/h.' }
+];
+
+const flashcardsData = [
+  ["Como se define cientificamente um sismo?","Uma libertação súbita de energia acumulada no interior da Terra que gera ondas sísmicas."],
+  ["Qual é a designação do ponto no interior da crosta onde se inicia a rutura num sismo?","Hipocentro (ou foco)."],
+  ["O que é o epicentro de um sismo?","O ponto à superfície da Terra localizado na vertical direta sobre o hipocentro."],
+  ["Quais são os blocos gigantes que compõem a litosfera?","Placas tectónicas."],
+  ["Como se chama a camada sobre a qual as placas tectónicas flutuam?","Astenosfera."],
+  ["A que se refere o termo 'sismicidade' de uma região?","À frequência, tipo e tamanho dos sismos registados nessa área durante um período de tempo."],
+  ["Que escala logarítmica mede a magnitude (energia libertada) de um sismo?","Escala de Richter."],
+  ["Que escala mede a intensidade de um sismo com base nos danos causados?","Escala de Mercalli."],
+  ["Como se designam os sismos de menor magnitude que ocorrem após o abalo principal?","Réplicas."],
+  ["Qual é a causa da maioria dos sismos naturais?","A interação e fricção entre placas tectónicas em falhas geológicas."],
+  ["O que são sismos induzidos?","Sismos resultantes da atividade humana, como explosões mineiras, enchimento de barragens ou extração de gás."],
+  ["Como se classificam os sismos que ocorrem entre a superfície e os 70 km de profundidade?","Sismos superficiais."],
+  ["Qual é a profundidade máxima aproximada onde costumam ocorrer sismos?","Cerca de 670 km."],
+  ["Portugal situa-se próximo da fronteira entre que duas placas tectónicas?","Placa Africana e Placa Euroasiática."],
+  ["Qual é a falha submarina responsável pelos sismos mais violentos em Portugal?","Banco de Gorringe."],
+  ["Em que data ocorreu o sismo mais destrutivo da história de Portugal?","1 de novembro de 1755."],
+  ["Qual foi a magnitude estimada do sismo de 1755?","Aproximadamente 9.0 Mw."],
+  ["Qual foi o sismo mais significativo em Portugal continental no século XX?","O sismo de 28 de fevereiro de 1969."],
+  ["Por que razão os sismos com epicentro no mar são perigosos para as zonas costeiras?","Devido ao risco de geração de tsunamis (maremotos)."],
+  ["Como se forma um tsunami?","Através de um sismo submarino de grande magnitude que movimenta uma enorme coluna de água."],
+  ["Qual é a velocidade aproximada de um tsunami em águas profundas?","Cerca de 800 a 900 km/h."],
+  ["O que acontece à altura de uma onda de tsunami ao aproximar-se da costa?","A velocidade diminui e a altura da onda aumenta drasticamente."],
+  ["Qual é o sinal natural na costa que pode anteceder um tsunami?","O recuo súbito do mar, deixando o fundo à vista."],
+  ["Qual é a regra de ouro dos três gestos a seguir durante um sismo?","Baixar, Proteger e Aguardar."],
+  ["Qual é a finalidade do gesto 'Baixar' durante um sismo?","Evitar quedas devido ao movimento do solo e permitir maior estabilidade."],
+  ["Durante um sismo, que partes do corpo devem ser priorizadas no gesto 'Proteger'?","A cabeça, o pescoço e os olhos."],
+  ["Se estiveres dentro de casa durante um sismo, qual é o local mais seguro?","Debaixo de uma mesa robusta, vãos de portas interiores ou cantos de paredes-mestras."],
+  ["Por que nunca se deve usar o elevador durante ou após um sismo?","Devido ao risco de corte de energia e de ficar preso numa armadilha metálica."],
+  ["Logo após o sismo parar, que três sistemas domésticos devem ser desligados?","Gás, eletricidade e água."],
+  ["Por que é proibido acender fósforos imediatamente após um sismo?","Pode haver fugas de gás invisíveis que causariam uma explosão."],
+  ["Qual é a utilidade de um apito num kit de emergência sísmica?","Sinalizar a localização às equipas de socorro em caso de ficar debaixo de escombros."],
+  ["Por quanto tempo deve o kit de emergência garantir a autossuficiência?","Pelo menos 3 dias (72 horas)."],
+  ["Por que deve preferir o envio de SMS em vez de chamadas após um desastre?","Para evitar saturar a rede e deixá-la livre para os serviços de emergência."],
+  ["Qual é o principal meio de comunicação se a eletricidade e internet falharem?","Rádio a pilhas."],
+  ["Qual é o sismo de maior magnitude alguma vez registado no mundo?","Sismo de Valdivia (Chile), em 1960, com magnitude 9.5."],
+  ["O que é uma falha geológica?","Uma fratura na crosta terrestre ao longo da qual ocorreu deslocamento de blocos rochosos."],
+  ["Qual é a função do número de emergência 112 após um sismo?","Solicitar ajuda apenas para situações críticas, como feridos graves ou incêndios."],
+  ["O que é a 'Gaiola Pombalina'?","Um sistema de construção sismo-resistente em madeira desenvolvido após o sismo de 1755 em Lisboa."],
+  ["Qual é a diferença fundamental entre magnitude e intensidade sísmica?","A magnitude mede a energia na origem; a intensidade mede os efeitos observados num local."],
+  ["Que tipo de solo costuma amplificar mais as ondas sísmicas?","Solos moles, como aluviões ou zonas de aterro."],
+  ["O que é o Anel de Fogo do Pacífico?","Uma zona em forma de ferradura no Pacífico onde ocorre cerca de 90% dos sismos do mundo."],
+  ["A que distância aproximada do Cabo de São Vicente se localiza o Banco de Gorringe?","Cerca de 250 km."],
+  ["Como se chama a descontinuidade que marca a transição entre a crosta e o manto da Terra?","Descontinuidade de Mohorovičić (ou Moho)."],
+  ["Qual foi a principal lição aprendida com o sismo de 1969 em Portugal?","A necessidade de melhorar a rede sísmica nacional e implementar construção sismo-resistente."],
+  ["Qual é a magnitude mínima típica para que um sismo submarino gere tsunami significativo?","Geralmente acima de magnitude 7.0."],
+  ["O que é o PEERST-ALG?","Plano Especial de Emergência para o Risco Sísmico e de Tsunamis no Algarve."],
+  ["O que são sismos intraplacas?","Sismos que ocorrem no interior de uma placa tectónica, longe das suas fronteiras."],
+  ["Como se chama o fenómeno de aumento de emissão de gases antes de um sismo?","Aumento da emissão de gás rádon (ou radão)."],
+  ["Que tipo de atividade humana pode provocar sismos detetáveis a grandes distâncias?","Testes nucleares subterrâneos."],
+  ["Que região de Portugal continental apresenta historicamente o maior risco sísmico?","O Algarve."],
+  ["O que é a ANEPC?","Autoridade Nacional de Emergência e Proteção Civil — responsável pelo planeamento e coordenação da proteção civil."],
+  ["Quais são as 6 fases do Ciclo da Catástrofe?","Prevenção/Mitigação, Preparação, Alerta, Resposta, Recuperação, Pós-Catástrofe."],
+  ["Quem foi Léon Paul Choffat?","Geólogo que criou a primeira carta macrossísmica de Portugal após o sismo de Benavente (1909)."],
+  ["O que é a Escala de Mercalli?","Escala qualitativa que mede a intensidade de um sismo pelos danos observados (I a XII)."],
+  ["Quem foi Andrija Mohorovičić?","Cientista croata que descobriu a descontinuidade crosta-manto (Moho) em 1909."],
+  ["O que é um sismógrafo?","Instrumento que deteta, amplia e regista as ondas sísmicas."],
+  ["O que é o rádon?","Gás nobre radioativo cuja emissão aumentada pode ser sinal precursor de sismo."],
+  ["Em que consiste o exercício 'A Terra Treme'?","Simulação anual de sismo em escolas para treinar os gestos Baixar, Proteger e Aguardar."],
+  ["O que é a Descontinuidade de Moho?","Fronteira geológica entre a crosta terrestre e o manto, identificada por variações na velocidade das ondas sísmicas."],
+  ["Qual é o principal risco associado ao sismo de 1755?","A combinação de sismo de magnitude ~9.0 com tsunami devastador que destruiu Lisboa e o Algarve."],
+  ["O que significa 'sismos interplacas'?","Sismos que ocorrem nas fronteiras entre placas tectónicas, onde a fricção é máxima."],
+  ["Por que razão o enchimento de grandes barragens pode causar sismos?","Devido à pressão da massa de água e infiltração em falhas geológicas pré-existentes."],
+  ["Que cuidado deve ter-se com produtos inflamáveis após um sismo?","Limpá-los para eliminar fontes potenciais de incêndio."],
+  ["O que deve conter o saco à prova de água do kit de emergência?","Dinheiro em notas pequenas, listas de contactos e cópias de documentos."],
+  ["De quanto em quanto tempo deve ser revisto o kit de emergência?","Regularmente, para verificar prazos de validade de alimentos, água e pilhas."],
+  ["Porque é importante calçar sapatos resistentes logo após um sismo?","Para proteção contra vidros partidos, destroços e objetos cortantes no chão."],
+  ["Qual é a janela de evacuação após um sismo submarino no Algarve?","15 a 30 minutos."],
+  ["Que falhas intraplaca representam risco direto para os centros urbanos do Algarve?","Falha de Loulé e Falha de Portimão."],
+  ["O que é o GT1 no contexto da proteção civil no Algarve?","Grupo de trabalho piloto para avaliar a segurança de estruturas de ensino na região."],
+  ["A que se refere o conceito de 'resiliência individual' perante sismos?","À capacidade de cada cidadão estar preparado para sobreviver e ajudar nas primeiras horas pós-evento."],
+  ["O que significa a frase 'a prevenção começa em si'?","Sublinha a responsabilidade individual e cívica na autoproteção."],
+  ["Quais são os 3 pilares da resiliência escolar?","Vulnerabilidade Estrutural, Capacidade da População Estudantil e Educação para o Risco."],
+  ["Qual é a profundidade típica dos focos de sismos intraplacas?","Geralmente entre 2 e 20 km — tornando-os muito destrutivos à superfície."],
+  ["O que é um exercício LIVEX?","Exercício de proteção civil à escala real com mobilização física de meios no terreno."],
+  ["O que é o NEAMWave?","Exercício bienal da COI-UNESCO para validação dos sistemas de alerta de tsunami no Atlântico Nordeste."]
+];
+
+// ==================== STATE ====================
+
+let quizState = {};
+let quizAnswered = {};
+let fcIndex = 0;
+let fcShuffled = [...Array(flashcardsData.length).keys()];
+let fcKnownSet = new Set();
+let fcReviewSet = new Set();
+let fcFlipped = false;
+let currentSlide = 0;
+let totalSlides = 15;
+let qcIndex = 0;
+
+// ==================== NAVIGATION ====================
+
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('sec-' + id).classList.add('active');
+  const tabs = document.querySelectorAll('.nav-tab');
+  const map = ['inicio','media','resumos','quiz','flashcards','quizcards','laboratorio','glossario'];
+  const idx = map.indexOf(id);
+  if (idx >= 0) tabs[idx].classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+// ==================== ACCORDION ====================
+
+function toggleAccordion(id) {
+  const body = document.getElementById(id);
+  const icon = document.getElementById('icon-' + id);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+}
+
+// ==================== MODAL ====================
+
+function openModal(src) {
+  document.getElementById('modalImg').src = src;
+  document.getElementById('imgModal').classList.add('open');
+}
+function closeModal() {
+  document.getElementById('imgModal').classList.remove('open');
+}
+
+// ==================== SLIDES ====================
+
+function initSlides() {
+  const dots = document.getElementById('slideDots');
+  dots.innerHTML = '';
+  for (let i = 0; i < totalSlides; i++) {
+    const d = document.createElement('button');
+    d.className = 'slide-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.onclick = () => goSlide(i);
+    dots.appendChild(d);
+  }
+}
+
+function goSlide(n) {
+  currentSlide = (n + totalSlides) % totalSlides;
+  const img = document.getElementById('slideImg');
+  img.src = './Diapositivo' + (currentSlide + 1) + '.jpg';
+  img.onerror = function() {
+    this.src = 'data:image/svg+xml,' + encodeURIComponent(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450"><rect fill="#292524" width="800" height="450"/><text x="400" y="210" text-anchor="middle" fill="#78716c" font-size="16" font-family="Inter,sans-serif">📑 Diapositivo' + (currentSlide+1) + '.jpg</text><text x="400" y="240" text-anchor="middle" fill="#57534e" font-size="13" font-family="Inter,sans-serif">Coloca o ficheiro na mesma pasta</text></svg>'
+    );
+  };
+  document.getElementById('slideCounter').textContent = (currentSlide + 1) + ' / ' + totalSlides;
+  document.querySelectorAll('.slide-dot').forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+function prevSlide() { goSlide(currentSlide - 1); }
+function nextSlide() { goSlide(currentSlide + 1); }
+
+// Keyboard for slides
+document.addEventListener('keydown', e => {
+  if (document.getElementById('sec-media').classList.contains('active')) {
+    if (e.key === 'ArrowRight') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  }
+  if (document.getElementById('sec-flashcards').classList.contains('active')) {
+    if (e.key === 'ArrowRight') nextCard();
+    if (e.key === 'ArrowLeft') prevCard();
+    if (e.key === ' ') { e.preventDefault(); flipCard(); }
+  }
+});
+
+// Touch for slides
+let touchStartX = 0;
+document.getElementById('slideImg') && document.getElementById('slideImg').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+
+// ==================== QUIZ ====================
+
+function initQuiz() {
+  quizState = {};
+  quizAnswered = {};
+  const container = document.getElementById('quizContainer');
+  container.innerHTML = '';
+
+  quizData.forEach((q, qi) => {
+    const div = document.createElement('div');
+    div.className = 'card';
+    div.style.marginBottom = '20px';
+    div.style.padding = '24px';
+
+    const levelColors = { basic: 'badge-green', intermediate: 'badge-bronze' };
+    const levelLabel = { basic: '⭐ Básico', intermediate: '⭐⭐ Intermédio' };
+
+    div.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+        <span style="font-size:13px;font-weight:700;color:var(--text-muted);">Q${q.id}</span>
+        <span class="badge ${levelColors[q.level]}">${levelLabel[q.level]}</span>
+      </div>
+      <div style="font-family:'Merriweather',serif;font-size:16px;margin-bottom:20px;line-height:1.6;">${q.question}</div>
+      <div id="hint-${qi}" style="font-size:13px;color:#e8bd6e;background:rgba(201,127,34,0.08);border:1px solid rgba(201,127,34,0.2);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:none;">💡 <em>${q.hint}</em></div>
+      <div id="options-${qi}"></div>
+      <div id="feedback-${qi}"></div>
+      <div style="margin-top:12px;"><button class="btn-ghost" style="font-size:12px;padding:6px 12px;" onclick="toggleHint(${qi})">💡 Dica</button></div>
+    `;
+
+    q.options.forEach((opt, oi) => {
+      const btn = document.createElement('button');
+      btn.className = 'quiz-option';
+      btn.textContent = opt;
+      btn.onclick = () => answerQuiz(qi, oi);
+      div.querySelector(`#options-${qi}`).appendChild(btn);
+    });
+
+    container.appendChild(div);
+  });
+
+  updateQuizStats();
+}
+
+function toggleHint(qi) {
+  const h = document.getElementById('hint-' + qi);
+  h.style.display = h.style.display === 'none' ? 'block' : 'none';
+}
+
+function answerQuiz(qi, oi) {
+  if (quizAnswered[qi]) return;
+  quizAnswered[qi] = true;
+  const q = quizData[qi];
+  const opts = document.querySelectorAll(`#options-${qi} .quiz-option`);
+  opts.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct) btn.classList.add('correct');
+    else if (i === oi && oi !== q.correct) btn.classList.add('wrong');
+  });
+
+  const fb = document.getElementById('feedback-' + qi);
+  const isCorrect = oi === q.correct;
+  quizState[qi] = isCorrect ? 'correct' : 'wrong';
+
+  let html = `<div class="feedback-box ${isCorrect ? 'feedback-correct' : 'feedback-wrong'}">`;
+  html += isCorrect ? '<strong>✅ Correto!</strong>' : '<strong>❌ Incorreto.</strong>';
+  if (q.correction && !isCorrect) html += ` <span style="color:#fca5a5;">${q.correction}</span>`;
+  html += `<br><br>${q.explanation}</div>`;
+  fb.innerHTML = html;
+
+  saveProgress();
+  updateQuizStats();
+}
+
+function updateQuizStats() {
+  const total = quizData.length;
+  const answered = Object.keys(quizAnswered).length;
+  const correct = Object.values(quizState).filter(v => v === 'correct').length;
+  const wrong = Object.values(quizState).filter(v => v === 'wrong').length;
+  const skipped = total - answered;
+
+  document.getElementById('statTotal').textContent = answered + '/' + total;
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statSkipped').textContent = skipped;
+  const pct = answered > 0 ? Math.round((answered / total) * 100) : 0;
+  document.getElementById('quizProgress').style.width = pct + '%';
+}
+
+function reviewQuiz() {
+  window.scrollTo(0, document.getElementById('quizContainer').offsetTop - 80);
+}
+
+function resetQuiz() {
+  if (!confirm('Tens a certeza que queres recomeçar o questionário?')) return;
+  quizState = {};
+  quizAnswered = {};
+  localStorage.removeItem('quizState');
+  initQuiz();
+  window.scrollTo(0, 0);
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem('quizState', JSON.stringify(quizState));
+    localStorage.setItem('quizAnswered', JSON.stringify(quizAnswered));
+  } catch(e) {}
+}
+
+// ==================== FLASHCARDS ====================
+
+function initFlashcards() {
+  loadFC();
+  renderFC();
+}
+
+function renderFC() {
+  const idx = fcShuffled[fcIndex];
+  const card = flashcardsData[idx];
+  document.getElementById('fcQuestion').innerHTML = card[0];
+  document.getElementById('fcAnswer').innerHTML = card[1];
+  document.getElementById('fcCurrent').textContent = fcIndex + 1;
+  document.getElementById('fcTotal').textContent = flashcardsData.length;
+  document.getElementById('fcProgress').style.width = ((fcIndex + 1) / flashcardsData.length * 100) + '%';
+  document.getElementById('fcKnown').textContent = fcKnownSet.size;
+  document.getElementById('fcReview').textContent = fcReviewSet.size;
+  
+  // Reset flip
+  document.getElementById('flashcard').classList.remove('flipped');
+  fcFlipped = false;
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', fcFlipped);
+}
+
+function nextCard() {
+  fcIndex = (fcIndex + 1) % flashcardsData.length;
+  renderFC();
+}
+
+function prevCard() {
+  fcIndex = (fcIndex - 1 + flashcardsData.length) % flashcardsData.length;
+  renderFC();
+}
+
+function markKnown() {
+  fcKnownSet.add(fcShuffled[fcIndex]);
+  fcReviewSet.delete(fcShuffled[fcIndex]);
+  saveFC();
+  nextCard();
+}
+
+function markUnknown() {
+  fcReviewSet.add(fcShuffled[fcIndex]);
+  fcKnownSet.delete(fcShuffled[fcIndex]);
+  saveFC();
+  nextCard();
+}
+
+function shuffleCards() {
+  for (let i = fcShuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcShuffled[i], fcShuffled[j]] = [fcShuffled[j], fcShuffled[i]];
+  }
+  fcIndex = 0;
+  renderFC();
+}
+
+function resetCards() {
+  fcIndex = 0;
+  fcKnownSet = new Set();
+  fcReviewSet = new Set();
+  fcShuffled = [...Array(flashcardsData.length).keys()];
+  saveFC();
+  renderFC();
+}
+
+function saveFC() {
+  try {
+    localStorage.setItem('fcKnown', JSON.stringify([...fcKnownSet]));
+    localStorage.setItem('fcReview', JSON.stringify([...fcReviewSet]));
+  } catch(e) {}
+}
+
+function loadFC() {
+  try {
+    const k = localStorage.getItem('fcKnown');
+    const r = localStorage.getItem('fcReview');
+    if (k) fcKnownSet = new Set(JSON.parse(k));
+    if (r) fcReviewSet = new Set(JSON.parse(r));
+  } catch(e) {}
+}
+
+// ==================== QUIZ CARDS ====================
+
+function initQC() {
+  qcIndex = 0;
+  renderQC();
+}
+
+function renderQC() {
+  const q = quizCardsData[qcIndex];
+  document.getElementById('qcCurrent').textContent = qcIndex + 1;
+  document.getElementById('qcTotal').textContent = quizCardsData.length;
+
+  const container = document.getElementById('qcContainer');
+  container.innerHTML = '';
+
+  const card = document.createElement('div');
+  card.className = 'quizcard';
+  card.innerHTML = `
+    <div class="quizcard-q">${q.q}</div>
+    <div class="quizcard-options" id="qcOpts"></div>
+    <div class="quizcard-answer" id="qcAnswer">✅ <strong>Correto!</strong> O cartão revelou-se — passas à próxima questão.</div>
+  `;
+
+  q.options.forEach((opt, oi) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-option';
+    btn.textContent = opt;
+    btn.onclick = () => {
+      if (oi === q.correct) {
+        btn.classList.add('correct');
+        document.getElementById('qcAnswer').style.display = 'block';
+        card.querySelectorAll('.quiz-option').forEach(b => b.disabled = true);
+      } else {
+        btn.classList.add('wrong');
+        btn.style.animation = 'shake 0.3s';
+        setTimeout(() => { btn.classList.remove('wrong'); btn.style.animation=''; }, 400);
+      }
+    };
+    card.querySelector('#qcOpts').appendChild(btn);
+  });
+
+  container.appendChild(card);
+}
+
+function prevQC() {
+  qcIndex = (qcIndex - 1 + quizCardsData.length) % quizCardsData.length;
+  renderQC();
+}
+
+function nextQC() {
+  qcIndex = (qcIndex + 1) % quizCardsData.length;
+  renderQC();
+}
+
+function resetQC() {
+  qcIndex = 0;
+  renderQC();
+}
+
+// ==================== GLOSSARY ====================
+
+function initGlossary() {
+  renderGlossary(glossaryData);
+}
+
+function renderGlossary(items) {
+  const list = document.getElementById('glossaryList');
+  list.innerHTML = items.map(g => `
+    <div class="glossary-item">
+      <div class="glossary-term">${g.term}</div>
+      <div class="glossary-def">${g.def}</div>
+    </div>
+  `).join('');
+}
+
+function filterGlossary(q) {
+  const filtered = glossaryData.filter(g =>
+    g.term.toLowerCase().includes(q.toLowerCase()) ||
+    g.def.toLowerCase().includes(q.toLowerCase())
+  );
+  renderGlossary(filtered);
+}
+
+// ==================== INIT ====================
+
+window.addEventListener('DOMContentLoaded', () => {
+  initSlides();
+  initQuiz();
+  initFlashcards();
+  initQC();
+  initGlossary();
+});
+</script>
+</body>
+</html>
