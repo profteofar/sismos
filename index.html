@@ -673,7 +673,7 @@ tailwind.config = {
   <!-- Slides -->
   <div class="section-heading" style="font-size:18px;margin-bottom:8px;">📑 Diapositivos</div>
   <p class="section-sub">Navega pelos slides — clica para ampliar</p>
-  <div class="slide-container" onclick="openModal('./Diapositivo' + (currentSlide+1) + '.jpg')">
+  <div class="slide-container" onclick="openCurrentSlide()">
     <img id="slideImg" src="./Diapositivo1.jpg" class="slide-img active" alt="Diapositivo 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22450%22><rect fill=%22%23292524%22 width=%22800%22 height=%22450%22/><text x=%22400%22 y=%22200%22 text-anchor=%22middle%22 fill=%22%2378716c%22 font-size=%2218%22 font-family=%22Inter,sans-serif%22>📑</text><text x=%22400%22 y=%22240%22 text-anchor=%22middle%22 fill=%22%2378716c%22 font-size=%2215%22 font-family=%22Inter,sans-serif%22>Diapositivo ' + (currentSlide+1) + '.jpg</text></svg>'">
   </div>
   <div class="slide-nav">
@@ -1224,8 +1224,9 @@ tailwind.config = {
   </div>
 </div>
 
-<!-- Modal -->
-  <div class="modal-content">
+<!-- Image Modal -->
+<div class="modal" id="imgModal" onclick="closeModal()">
+  <div class="modal-content" onclick="event.stopPropagation()">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <img id="modalImg" src="" alt="Imagem ampliada">
   </div>
@@ -1528,6 +1529,10 @@ function toggleAccordion(id) {
 }
 
 // ==================== MODAL ====================
+
+function openCurrentSlide() {
+  openModal('./Diapositivo' + (currentSlide + 1) + '.jpg');
+}
 
 function openModal(src) {
   document.getElementById('modalImg').src = src;
