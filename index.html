@@ -1142,8 +1142,89 @@ tailwind.config = {
 </div>
 </div>
 
+<!-- ==================== RODAPÉ ==================== -->
+<footer style="border-top:1px solid var(--stone-border);margin-top:48px;padding:24px 20px;text-align:center;background:rgba(12,10,9,0.6);">
+  <p style="font-size:13px;color:var(--text-muted);">Teodósio Faria &copy;2026 &mdash; <span style="color:var(--bronze);">Guia de Estudo: Risco Sísmico e Resiliência em Portugal</span></p>
+  <p style="font-size:12px;color:#57534e;margin-top:6px;">Conteúdo de caráter pedagógico para o 2.º e 3.º Ciclo do Ensino Básico de Portugal</p>
+</footer>
+
+<!-- Botão flutuante Guia de Utilizador -->
+<button onclick="openUserGuide()" title="Guia de Utilizador" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--bronze);border:none;border-radius:50px;padding:12px 20px;color:#fff;font-family:'Inter',sans-serif;font-weight:700;font-size:13px;cursor:pointer;box-shadow:0 4px 20px rgba(201,127,34,0.4);display:flex;align-items:center;gap:8px;transition:background 0.2s,transform 0.2s;" onmouseover="this.style.background='#a8621a';this.style.transform='translateY(-2px)'" onmouseout="this.style.background='var(--bronze)';this.style.transform='translateY(0)'">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  Guia de Utilizador
+</button>
+
+<!-- Modal Guia de Utilizador -->
+<div class="modal" id="userGuideModal" onclick="closeUserGuide()" style="align-items:flex-start;padding:40px 20px;overflow-y:auto;">
+  <div onclick="event.stopPropagation()" style="background:var(--stone-card);border:1px solid var(--stone-border);border-radius:16px;max-width:740px;width:100%;padding:36px;position:relative;margin:auto;">
+    <button onclick="closeUserGuide()" style="position:absolute;top:16px;right:16px;background:var(--stone-border);border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;color:var(--text-primary);font-size:16px;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-weight:700;">✕</button>
+
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:24px;">
+      <div style="width:48px;height:48px;background:rgba(201,127,34,0.15);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">📘</div>
+      <div>
+        <h2 style="font-size:20px;font-family:'Merriweather',serif;">Guia de Utilizador</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Como tirar o máximo partido desta aplicação</p>
+      </div>
+    </div>
+
+    <!-- Secções do guia -->
+    <div style="display:flex;flex-direction:column;gap:18px;">
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">🏠 Início</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Apresenta uma visão geral da aplicação e uma <strong style="color:var(--text-primary);">linha do tempo interativa</strong> com os principais marcos históricos da sismologia em Portugal (1755 a 2017). Utiliza este painel para ter uma primeira orientação antes de explorar os outros módulos.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">🎬 Multimédia</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Contém o <strong style="color:var(--text-primary);">Vídeo Resumo</strong> e o <strong style="color:var(--text-primary);">Podcast</strong> (para ouvires em movimento), as <strong style="color:var(--text-primary);">Infografias</strong> (clica em qualquer uma para a ampliar numa janela modal), e os <strong style="color:var(--text-primary);">Diapositivos</strong> (navega com as setas ← → ou com as teclas do teclado; clica no slide para o ampliar). Os ficheiros de media devem estar na mesma pasta que o ficheiro <code style="background:rgba(255,255,255,0.08);padding:2px 6px;border-radius:4px;font-size:12px;">index.html</code>.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">📚 Resumos Explicativos</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Quatro temas organizados em <strong style="color:var(--text-primary);">acordeão</strong> — clica no cabeçalho de cada tema para expandir ou recolher o conteúdo. Cada resumo começa com a respetiva infografia (clicável para ampliar), seguida de texto estruturado com tabelas, destaques e caixas de informação. Ideal para a fase de estudo inicial.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">❓ Questionário</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">10 perguntas de escolha múltipla com dificuldade progressiva (básico e intermédio). Clica numa opção para responder — recebes <strong style="color:var(--text-primary);">feedback imediato</strong> com a explicação detalhada e, se errares, a correção da afirmação falsa. O painel no topo mostra as questões respondidas, corretas, erradas e ignoradas (com percentagem). Podes <strong style="color:var(--text-primary);">rever</strong> as respostas ou <strong style="color:var(--text-primary);">recomeçar</strong> do zero. O progresso é guardado automaticamente.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">🃏 Flashcards</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">77 cartões de estudo para memorização por repetição. <strong style="color:var(--text-primary);">Clica no cartão</strong> para o virar e ver a resposta. Usa as setas ← → (ou as teclas do teclado) para navegar. Marca cada cartão como <em>Sei ✓</em> ou <em>Rever ✗</em> para acompanhar o teu progresso. Podes <strong style="color:var(--text-primary);">baralhar</strong> os cartões para variar a ordem de estudo. O progresso é guardado automaticamente.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">🎯 Quiz Cards</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Uma atividade de consolidação: o cartão <strong style="color:var(--text-primary);">só revela a resposta quando selecionas a opção correta</strong>. Se escolheres uma opção errada, o botão vibra e podes tentar novamente. Navega entre os 10 cartões com as setas ← →. Usa este módulo após os Flashcards para testares o que já memorizaste.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">🔬 Laboratório Visual</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">Guias práticos organizados em acordeão: como preparar um <strong style="color:var(--text-primary);">Kit de Emergência Familiar</strong> completo para 72 horas, os <strong style="color:var(--text-primary);">protocolos de segurança</strong> antes, durante e após um sismo, e o que fazer em diferentes locais (casa, escola, carro, praia). Conteúdo visual e direto, ideal para partilhar com a família.</p>
+      </div>
+
+      <div style="background:rgba(201,127,34,0.06);border:1px solid rgba(201,127,34,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:var(--bronze);margin-bottom:8px;display:flex;align-items:center;gap:8px;">📖 Glossário</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">20 termos técnicos explicados de forma clara. Usa a <strong style="color:var(--text-primary);">caixa de pesquisa</strong> para filtrar por palavra — a lista atualiza-se em tempo real enquanto escreves. Útil para consulta rápida durante o estudo dos resumos ou do questionário.</p>
+      </div>
+
+      <div style="background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.2);border-radius:10px;padding:18px 20px;">
+        <div style="font-weight:700;color:#86efac;margin-bottom:8px;">💾 Progresso Automático</div>
+        <p style="font-size:13px;color:var(--text-secondary);line-height:1.7;">O Questionário e os Flashcards guardam automaticamente o teu progresso no browser (localStorage). Quando regressares, o teu progresso estará preservado. Podes sempre reiniciar através dos botões <em>"Responder Novamente"</em> e <em>"Reiniciar"</em> disponíveis em cada módulo.</p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--stone-border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+      <p style="font-size:12px;color:var(--text-muted);">Teodósio Faria &copy;2026 — Guia de Estudo: Risco Sísmico e Resiliência em Portugal</p>
+      <button class="btn-bronze" onclick="closeUserGuide()">Fechar Guia</button>
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
-<div class="modal" id="imgModal" onclick="closeModal()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <img id="modalImg" src="" alt="Imagem ampliada">
@@ -1777,6 +1858,17 @@ function filterGlossary(q) {
     g.def.toLowerCase().includes(q.toLowerCase())
   );
   renderGlossary(filtered);
+}
+
+// ==================== USER GUIDE ====================
+
+function openUserGuide() {
+  document.getElementById('userGuideModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeUserGuide() {
+  document.getElementById('userGuideModal').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 // ==================== INIT ====================
